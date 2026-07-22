@@ -113,7 +113,7 @@
       </header>
 
       <div id="tab-dashboard" class="space-y-6">
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
           <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
             <div>
               <span class="text-[11px] font-medium text-slate-400 uppercase tracking-wider">Sessões Hoje</span>
@@ -128,6 +128,14 @@
               <p class="text-2xl font-bold text-teal-600 mt-0.5 privacy-target" id="dash-pending-amount">R$ 0,00</p>
             </div>
             <div class="w-10 h-10 rounded-xl bg-teal-50 flex items-center justify-center text-teal-600"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+          </div>
+
+          <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
+            <div>
+              <span class="text-[11px] font-medium text-slate-400 uppercase tracking-wider">Pendente Geral</span>
+              <p class="text-2xl font-bold text-amber-600 mt-0.5 privacy-target" id="dash-total-pending-amount">R$ 0,00</p>
+            </div>
+            <div class="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600"><i class="fa-solid fa-clock-rotate-left"></i></div>
           </div>
 
           <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
@@ -151,7 +159,7 @@
 
       <div id="tab-pacientes" class="hidden space-y-4">
         <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between gap-4">
-          <input type="text" id="patient-search" oninput="renderPatients()" placeholder="Buscar paciente por nome ou CPF..." class="w-full max-w-xs text-xs border border-slate-200 rounded-xl px-3 py-2 focus:outline-none focus:border-teal-600">
+          <input type="text" id="patient-search" oninput="renderPatients()" placeholder="Buscar por nome, telefone ou e-mail..." class="w-full max-w-xs text-xs border border-slate-200 rounded-xl px-3 py-2 focus:outline-none focus:border-teal-600">
           <button onclick="openPatientModal()" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition">+ Novo Paciente</button>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="patient-cards-container"></div>
@@ -219,27 +227,78 @@
         </div>
         <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1">CPF</label>
-            <input type="text" id="p-cpf" class="w-full text-xs border border-slate-200 rounded-xl p-2.5 focus:border-teal-600 outline-none">
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Telefone / WhatsApp</label>
+            <input type="text" id="p-phone" placeholder="(11) 98888-7777" class="w-full text-xs border border-slate-200 rounded-xl p-2.5 focus:border-teal-600 outline-none">
           </div>
           <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1">Telefone / WhatsApp</label>
-            <input type="text" id="p-phone" class="w-full text-xs border border-slate-200 rounded-xl p-2.5 focus:border-teal-600 outline-none">
+            <label class="block text-xs font-semibold text-slate-700 mb-1">E-mail</label>
+            <input type="email" id="p-email" placeholder="paciente@email.com" class="w-full text-xs border border-slate-200 rounded-xl p-2.5 focus:border-teal-600 outline-none">
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Data de Nascimento</label>
+            <input type="date" id="p-birth" class="w-full text-xs border border-slate-200 rounded-xl p-2.5 focus:border-teal-600 outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Valor Padrão da Sessão (R$)</label>
+            <input type="number" id="p-price" value="150" step="0.01" required class="w-full text-xs border border-slate-200 rounded-xl p-2.5 focus:border-teal-600 outline-none">
           </div>
         </div>
         <div>
-          <label class="block text-xs font-semibold text-slate-700 mb-1">Valor Padrão da Sessão (R$)</label>
-          <input type="number" id="p-price" value="150" step="0.01" required class="w-full text-xs border border-slate-200 rounded-xl p-2.5 focus:border-teal-600 outline-none">
-        </div>
-        <div>
-          <label class="block text-xs font-semibold text-slate-700 mb-1">Anamnese / Observações Iniciais</label>
-          <textarea id="p-notes" rows="3" class="w-full text-xs border border-slate-200 rounded-xl p-2.5 focus:border-teal-600 outline-none"></textarea>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Observações / Queixa Principal</label>
+          <textarea id="p-notes" rows="3" placeholder="Anotações gerais, horários de preferência, histórico inicial..." class="w-full text-xs border border-slate-200 rounded-xl p-2.5 focus:border-teal-600 outline-none"></textarea>
         </div>
         <div class="flex justify-end gap-2 pt-2 border-t border-slate-100">
           <button type="button" onclick="closeModal('patient-modal')" class="px-3 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-xl">Cancelar</button>
           <button type="submit" class="px-4 py-2 text-xs font-semibold bg-teal-600 text-white hover:bg-teal-700 rounded-xl shadow-sm">Salvar Paciente</button>
         </div>
       </form>
+    </div>
+  </div>
+
+  <div id="patient-sheet-modal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-xl max-w-2xl w-full p-6 space-y-4 max-h-[90vh] flex flex-col">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div>
+          <h3 class="font-bold text-slate-900 text-base privacy-target" id="sheet-patient-name">Ficha do Paciente</h3>
+          <p class="text-xs text-slate-400" id="sheet-patient-contact"></p>
+        </div>
+        <button onclick="closeModal('patient-sheet-modal')" class="text-slate-400 hover:text-slate-600 text-lg"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="overflow-y-auto space-y-4 pr-1 flex-1">
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 bg-slate-50 p-3.5 rounded-xl border border-slate-100">
+          <div>
+            <span class="text-[10px] text-slate-400 font-medium block">Última Consulta</span>
+            <span class="text-xs font-bold text-slate-700" id="sheet-last-session">-</span>
+          </div>
+          <div>
+            <span class="text-[10px] text-slate-400 font-medium block">Próxima Consulta</span>
+            <span class="text-xs font-bold text-teal-600" id="sheet-next-session">-</span>
+          </div>
+          <div>
+            <span class="text-[10px] text-slate-400 font-medium block">Valor da Sessão</span>
+            <span class="text-xs font-bold text-slate-700 privacy-target" id="sheet-price">R$ 150,00</span>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="text-xs font-bold text-slate-800 mb-1">Observações Iniciais / Anamnese</h4>
+          <p class="text-xs text-slate-600 bg-slate-50/80 p-3 rounded-xl border border-slate-100 leading-relaxed" id="sheet-notes">Sem anotações.</p>
+        </div>
+
+        <div class="pt-2">
+          <h4 class="text-xs font-bold text-slate-800 mb-3 flex items-center gap-2">
+            <i class="fa-solid fa-clock-rotate-left text-teal-600"></i> Histórico do Prontuário (Linha do Tempo)
+          </h4>
+          <div class="space-y-3" id="sheet-timeline-container"></div>
+        </div>
+      </div>
+
+      <div class="flex justify-end pt-3 border-t border-slate-100">
+        <button onclick="closeModal('patient-sheet-modal')" class="px-4 py-2 text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 rounded-xl">Fechar</button>
+      </div>
     </div>
   </div>
 
@@ -259,7 +318,6 @@
         <div>
           <label class="block text-xs font-semibold text-slate-700 mb-1">Valor desta Consulta (R$)</label>
           <input type="number" id="app-price" step="0.01" value="150" required class="w-full text-xs border border-slate-200 rounded-xl p-2.5 outline-none focus:border-teal-600">
-          <span class="text-[10px] text-slate-400 block mt-1">Preenchido com o valor do cadastro do paciente. Altere apenas se for um valor específico para esta sessão.</span>
         </div>
 
         <div class="grid grid-cols-2 gap-3">
@@ -270,6 +328,22 @@
           <div>
             <label class="block text-xs font-semibold text-slate-700 mb-1">Horário</label>
             <input type="time" id="app-time" value="14:00" required class="w-full text-xs border border-slate-200 rounded-xl p-2.5 outline-none focus:border-teal-600">
+          </div>
+        </div>
+
+        <div id="recurrence-box" class="bg-slate-50 p-3 rounded-xl border border-slate-100 space-y-2">
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" id="app-repeat" class="rounded text-teal-600 focus:ring-teal-500">
+            <span class="text-xs font-semibold text-slate-700">Repetir semanalmente</span>
+          </label>
+          <div id="repeat-weeks-container" class="hidden pl-6">
+            <label class="block text-[11px] text-slate-500 mb-1">Por quantas semanas?</label>
+            <select id="app-weeks" class="text-xs border border-slate-200 rounded-lg p-1.5 bg-white outline-none">
+              <option value="2">2 semanas</option>
+              <option value="4" selected>4 semanas (1 mês)</option>
+              <option value="8">8 semanas (2 meses)</option>
+              <option value="12">12 semanas (3 meses)</option>
+            </select>
           </div>
         </div>
 
@@ -299,6 +373,7 @@
             <select id="modal-session-status" class="w-full text-xs border border-slate-200 rounded-xl p-2.5 focus:border-teal-600 outline-none bg-white">
               <option value="agendada">Agendada</option>
               <option value="realizada">Realizada</option>
+              <option value="faltou">Faltou (Com Cobrança)</option>
               <option value="cancelada">Cancelada</option>
             </select>
           </div>
@@ -312,8 +387,13 @@
         </div>
 
         <div>
-          <label class="block text-xs font-semibold text-slate-700 mb-1">Evolução Clínica / Anotações Privadas</label>
-          <textarea id="modal-session-notes" rows="6" placeholder="Escreva aqui as observações da sessão..." class="w-full text-xs border border-slate-200 rounded-xl p-3 focus:border-teal-600 outline-none text-slate-700 leading-relaxed"></textarea>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Evolução Clínica / Notas da Sessão</label>
+          <textarea id="modal-session-notes" rows="4" placeholder="Escreva aqui os principais pontos abordados na sessão..." class="w-full text-xs border border-slate-200 rounded-xl p-3 focus:border-teal-600 outline-none text-slate-700 leading-relaxed"></textarea>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Próximo Passo / Tarefa para Casa</label>
+          <textarea id="modal-next-step" rows="2" placeholder="O que trabalhar na próxima sessão ou técnica/exercício recomendado..." class="w-full text-xs border border-slate-200 rounded-xl p-3 focus:border-teal-600 outline-none text-slate-700 leading-relaxed"></textarea>
         </div>
       </div>
 
@@ -346,6 +426,10 @@
       document.getElementById('app-date').value = todayStr;
       document.getElementById('agenda-date-from').value = todayStr;
       document.getElementById('agenda-date-to').value = todayStr;
+
+      document.getElementById('app-repeat').addEventListener('change', (e) => {
+        document.getElementById('repeat-weeks-container').classList.toggle('hidden', !e.target.checked);
+      });
 
       const { data: { session } } = await supabaseClient.auth.getSession();
       if (session) {
@@ -472,16 +556,18 @@
       document.getElementById('dash-total-sessions').innerText = todayApps.length;
       document.getElementById('dash-total-patients').innerText = state.patients.length;
 
-      // Soma o valor exato da consulta ou fallback do paciente
-      const pending = todayApps
+      // Cálculo A Receber Hoje
+      const pendingToday = todayApps
         .filter(a => (a.pagamento || '').toLowerCase() === 'pendente')
-        .reduce((acc, curr) => {
-          const patient = state.patients.find(p => p.id == curr.paciente_id);
-          const val = Number(curr.valor) || Number(patient?.valor_padrao) || 0;
-          return acc + val;
-        }, 0);
+        .reduce((acc, curr) => acc + (Number(curr.valor) || 150), 0);
 
-      document.getElementById('dash-pending-amount').innerText = `R$ ${pending.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      // Cálculo Pendente Geral (Hoje e Passadas)
+      const pendingTotal = state.appointments
+        .filter(a => a.data <= today && (a.pagamento || '').toLowerCase() === 'pendente' && (a.status || '').toLowerCase() !== 'cancelada')
+        .reduce((acc, curr) => acc + (Number(curr.valor) || 150), 0);
+
+      document.getElementById('dash-pending-amount').innerText = `R$ ${pendingToday.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+      document.getElementById('dash-total-pending-amount').innerText = `R$ ${pendingTotal.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
 
       const list = document.getElementById('dashboard-appointment-list');
       if (todayApps.length === 0) {
@@ -491,9 +577,13 @@
 
       list.innerHTML = todayApps.map(app => {
         const patient = state.patients.find(p => p.id == app.paciente_id) || { nome: 'Paciente' };
-        const appPrice = Number(app.valor) || Number(patient.valor_padrao) || 150;
-        const statusClass = (app.status || '').toLowerCase() === 'realizada' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800';
+        const appPrice = Number(app.valor) || 150;
         
+        let statusClass = 'bg-amber-100 text-amber-800';
+        if ((app.status || '').toLowerCase() === 'realizada') statusClass = 'bg-emerald-100 text-emerald-800';
+        if ((app.status || '').toLowerCase() === 'faltou') statusClass = 'bg-rose-100 text-rose-800';
+        if ((app.status || '').toLowerCase() === 'cancelada') statusClass = 'bg-slate-100 text-slate-600';
+
         return `
           <div class="p-4 flex items-center justify-between gap-4">
             <div class="flex items-center gap-4">
@@ -504,7 +594,8 @@
               </div>
             </div>
             <div class="flex items-center gap-2">
-              <span class="text-[11px] px-2.5 py-0.5 rounded-full font-semibold ${statusClass}">${app.status}</span>
+              <span class="text-[11px] px-2.5 py-0.5 rounded-full font-semibold capitalize ${statusClass}">${app.status}</span>
+              ${patient.telefone ? `<button onclick="sendWhatsApp('${app.id}')" class="text-xs text-emerald-600 hover:text-emerald-800 p-1" title="Cobrar / Enviar Pix via WhatsApp"><i class="fa-brands fa-whatsapp text-sm"></i></button>` : ''}
               <button onclick="openAppointmentModal('${app.id}')" class="text-xs text-slate-400 hover:text-slate-800 p-1" title="Editar Consulta"><i class="fa-solid fa-pen"></i></button>
               <button onclick="openSessionModal('${app.id}')" class="text-xs bg-teal-50 text-teal-700 hover:bg-teal-100 font-semibold px-2.5 py-1 rounded-lg transition">Prontuário</button>
             </div>
@@ -517,7 +608,11 @@
       const search = document.getElementById('patient-search').value.toLowerCase();
       const container = document.getElementById('patient-cards-container');
 
-      const filtered = state.patients.filter(p => p.nome.toLowerCase().includes(search) || (p.cpf && p.cpf.includes(search)));
+      const filtered = state.patients.filter(p => 
+        p.nome.toLowerCase().includes(search) || 
+        (p.telefone && p.telefone.includes(search)) ||
+        (p.email && p.email.toLowerCase().includes(search))
+      );
       
       if (filtered.length === 0) {
         container.innerHTML = `<div class="col-span-2 p-8 text-center text-xs text-slate-400 bg-white rounded-2xl border border-slate-200/80">Nenhum paciente encontrado.</div>`;
@@ -533,8 +628,12 @@
               <button onclick="openPatientModal('${p.id}')" class="text-xs text-slate-400 hover:text-teal-600 px-1 font-medium"><i class="fa-solid fa-pen"></i> Editar</button>
             </div>
           </div>
-          <p class="text-xs text-slate-400">CPF: ${p.cpf || 'Não informado'} • Tel: ${p.telefone || 'Não informado'}</p>
-          <p class="text-xs text-slate-600 bg-slate-50 p-2.5 rounded-xl border border-slate-100">${p.notas || 'Sem anotações.'}</p>
+          <p class="text-xs text-slate-400">Tel: ${p.telefone || 'Não informado'} • E-mail: ${p.email || 'Não informado'}</p>
+          <div class="flex items-center justify-between pt-1">
+            <button onclick="openPatientSheetModal('${p.id}')" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold px-3 py-1.5 rounded-xl transition flex items-center gap-1.5">
+              <i class="fa-solid fa-notes-medical text-teal-600"></i> Ver Ficha & Histórico
+            </button>
+          </div>
         </div>
       `).join('');
     }
@@ -557,7 +656,7 @@
 
       container.innerHTML = filtered.map(app => {
         const patient = state.patients.find(p => p.id == app.paciente_id) || { nome: 'Paciente' };
-        const appPrice = Number(app.valor) || Number(patient.valor_padrao) || 150;
+        const appPrice = Number(app.valor) || 150;
         const formattedDate = new Date(app.data + 'T00:00:00').toLocaleDateString('pt-BR');
 
         return `
@@ -573,12 +672,68 @@
               </div>
             </div>
             <div class="flex items-center gap-2">
+              ${patient.telefone ? `<button onclick="sendWhatsApp('${app.id}')" class="text-xs text-emerald-600 hover:text-emerald-800 p-1" title="Cobrar / Enviar Pix via WhatsApp"><i class="fa-brands fa-whatsapp text-sm"></i></button>` : ''}
               <button onclick="openAppointmentModal('${app.id}')" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold px-2.5 py-1.5 rounded-lg transition" title="Editar Consulta"><i class="fa-solid fa-pen"></i></button>
               <button onclick="openSessionModal('${app.id}')" class="text-xs bg-teal-50 text-teal-700 hover:bg-teal-100 font-semibold px-3 py-1.5 rounded-lg transition">Prontuário</button>
             </div>
           </div>
         `;
       }).join('');
+    }
+
+    function sendWhatsApp(appId) {
+      const app = state.appointments.find(a => a.id == appId);
+      if (!app) return;
+      const patient = state.patients.find(p => p.id == app.paciente_id);
+      if (!patient || !patient.telefone) return alert('Paciente não possui telefone cadastrado.');
+
+      const cleanPhone = patient.telefone.replace(/\D/g, '');
+      const formattedDate = new Date(app.data + 'T00:00:00').toLocaleDateString('pt-BR');
+      const pix = state.profile?.pix || 'E-mail cadastrado no perfil';
+      
+      const message = `Olá, ${patient.nome.split(' ')[0]}! Tudo bem? Passando para lembrar da nossa sessão no dia ${formattedDate} às ${(app.horario || '00:00').substring(0,5)} (Valor: R$ ${Number(app.valor || 150).toFixed(2)}).\n\nMinha chave Pix para pagamento: ${pix}`;
+
+      window.open(`https://wa.me/55${cleanPhone}?text=${encodeURIComponent(message)}`, '_blank');
+    }
+
+    function openPatientSheetModal(patientId) {
+      const patient = state.patients.find(p => p.id == patientId);
+      if (!patient) return;
+
+      document.getElementById('sheet-patient-name').innerText = patient.nome;
+      document.getElementById('sheet-patient-contact').innerText = `Tel: ${patient.telefone || 'N/A'} • E-mail: ${patient.email || 'N/A'} • Nasc: ${patient.data_nascimento ? new Date(patient.data_nascimento + 'T00:00:00').toLocaleDateString('pt-BR') : 'N/A'}`;
+      document.getElementById('sheet-price').innerText = `R$ ${Number(patient.valor_padrao || 150).toFixed(2)}`;
+      document.getElementById('sheet-notes').innerText = patient.notas || 'Sem observações cadastradas.';
+
+      const patientApps = state.appointments.filter(a => a.paciente_id == patientId).sort((a,b) => a.data.localeCompare(b.data));
+      const today = getTodayString();
+
+      const pastApps = patientApps.filter(a => a.data <= today);
+      const futureApps = patientApps.filter(a => a.data > today);
+
+      const lastApp = pastApps.length > 0 ? pastApps[pastApps.length - 1] : null;
+      const nextApp = futureApps.length > 0 ? futureApps[0] : null;
+
+      document.getElementById('sheet-last-session').innerText = lastApp ? `${new Date(lastApp.data + 'T00:00:00').toLocaleDateString('pt-BR')} (${lastApp.status})` : 'Nenhuma';
+      document.getElementById('sheet-next-session').innerText = nextApp ? `${new Date(nextApp.data + 'T00:00:00').toLocaleDateString('pt-BR')} às ${nextApp.horario.substring(0,5)}` : 'Nenhuma';
+
+      const container = document.getElementById('sheet-timeline-container');
+      if (patientApps.length === 0) {
+        container.innerHTML = `<p class="text-xs text-slate-400">Nenhum histórico de consulta encontrado.</p>`;
+      } else {
+        container.innerHTML = patientApps.reverse().map(a => `
+          <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-100 space-y-1.5">
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-bold text-slate-800">${new Date(a.data + 'T00:00:00').toLocaleDateString('pt-BR')} das ${(a.horario || '00:00').substring(0,5)}</span>
+              <span class="capitalize font-semibold text-[11px] px-2 py-0.5 rounded-full ${a.status === 'realizada' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">${a.status} (${a.pagamento})</span>
+            </div>
+            <p class="text-xs text-slate-700"><strong>Evolução:</strong> ${a.anotacoes || 'Sem anotações gravadas.'}</p>
+            ${a.proximo_passo ? `<p class="text-xs text-teal-700 bg-teal-50/50 p-2 rounded-lg"><strong>Próximo Passo:</strong> ${a.proximo_passo}</p>` : ''}
+          </div>
+        `).join('');
+      }
+
+      openModal('patient-sheet-modal');
     }
 
     function resetAgendaDates() {
@@ -622,15 +777,17 @@
         const patient = state.patients.find(p => p.id == patientId);
         if (patient) {
           document.getElementById('p-name').value = patient.nome || '';
-          document.getElementById('p-cpf').value = patient.cpf || '';
           document.getElementById('p-phone').value = patient.telefone || '';
+          document.getElementById('p-email').value = patient.email || '';
+          document.getElementById('p-birth').value = patient.data_nascimento || '';
           document.getElementById('p-price').value = patient.valor_padrao || 150;
           document.getElementById('p-notes').value = patient.notas || '';
         }
       } else {
         document.getElementById('p-name').value = '';
-        document.getElementById('p-cpf').value = '';
         document.getElementById('p-phone').value = '';
+        document.getElementById('p-email').value = '';
+        document.getElementById('p-birth').value = '';
         document.getElementById('p-price').value = 150;
         document.getElementById('p-notes').value = '';
       }
@@ -643,8 +800,9 @@
       const patientData = {
         psicologo_id: state.user.id,
         nome: document.getElementById('p-name').value,
-        cpf: document.getElementById('p-cpf').value,
         telefone: document.getElementById('p-phone').value,
+        email: document.getElementById('p-email').value,
+        data_nascimento: document.getElementById('p-birth').value || null,
         valor_padrao: Number(document.getElementById('p-price').value || 150),
         notas: document.getElementById('p-notes').value
       };
@@ -681,6 +839,7 @@
 
       document.getElementById('app-id').value = appId || '';
       document.getElementById('appointment-modal-title').innerText = appId ? 'Editar Consulta' : 'Agendar Consulta';
+      document.getElementById('recurrence-box').classList.toggle('hidden', !!appId);
 
       if (appId) {
         const app = state.appointments.find(a => a.id == appId);
@@ -693,6 +852,8 @@
       } else {
         document.getElementById('app-date').value = getTodayString();
         document.getElementById('app-time').value = '14:00';
+        document.getElementById('app-repeat').checked = false;
+        document.getElementById('repeat-weeks-container').classList.add('hidden');
         onAppointmentPatientChange();
       }
 
@@ -703,25 +864,38 @@
       e.preventDefault();
       const appId = document.getElementById('app-id').value;
       const patientId = document.getElementById('app-patient-id').value;
+      const initialDate = document.getElementById('app-date').value;
+      const time = document.getElementById('app-time').value;
+      const price = Number(document.getElementById('app-price').value || 150);
+      const isRepeat = document.getElementById('app-repeat').checked;
+      const weeks = Number(document.getElementById('app-weeks').value || 4);
 
-      const appData = {
-        psicologo_id: state.user.id,
-        paciente_id: patientId,
-        valor: Number(document.getElementById('app-price').value || 150),
-        data: document.getElementById('app-date').value,
-        horario: document.getElementById('app-time').value
-      };
-
-      let error;
       if (appId) {
-        ({ error } = await supabaseClient.from('consultas').update(appData).eq('id', appId));
+        const appData = { psicologo_id: state.user.id, paciente_id: patientId, valor: price, data: initialDate, horario: time };
+        const { error } = await supabaseClient.from('consultas').update(appData).eq('id', appId);
+        if (error) return alert('Erro ao salvar consulta: ' + error.message);
       } else {
-        appData.status = 'agendada';
-        appData.pagamento = 'pendente';
-        ({ error } = await supabaseClient.from('consultas').insert([appData]));
-      }
+        const batchToInsert = [];
+        let currentDate = new Date(initialDate + 'T00:00:00');
 
-      if (error) return alert('Erro ao salvar consulta: ' + error.message);
+        const totalTimes = isRepeat ? weeks : 1;
+        for (let i = 0; i < totalTimes; i++) {
+          const dateStr = currentDate.toISOString().split('T')[0];
+          batchToInsert.push({
+            psicologo_id: state.user.id,
+            paciente_id: patientId,
+            valor: price,
+            data: dateStr,
+            horario: time,
+            status: 'agendada',
+            pagamento: 'pendente'
+          });
+          currentDate.setDate(currentDate.getDate() + 7);
+        }
+
+        const { error } = await supabaseClient.from('consultas').insert(batchToInsert);
+        if (error) return alert('Erro ao criar agendamento(s): ' + error.message);
+      }
 
       closeModal('appointment-modal');
       await loadData();
@@ -738,6 +912,7 @@
       document.getElementById('modal-session-status').value = app.status || 'agendada';
       document.getElementById('modal-payment-status').value = app.pagamento || 'pendente';
       document.getElementById('modal-session-notes').value = app.anotacoes || '';
+      document.getElementById('modal-next-step').value = app.proximo_passo || '';
 
       openModal('session-modal');
     }
@@ -747,8 +922,9 @@
       const status = document.getElementById('modal-session-status').value;
       const pagamento = document.getElementById('modal-payment-status').value;
       const anotacoes = document.getElementById('modal-session-notes').value;
+      const proximo_passo = document.getElementById('modal-next-step').value;
 
-      const { error } = await supabaseClient.from('consultas').update({ status, pagamento, anotacoes }).eq('id', appId);
+      const { error } = await supabaseClient.from('consultas').update({ status, pagamento, anotacoes, proximo_passo }).eq('id', appId);
       if (error) return alert('Erro ao salvar prontuário: ' + error.message);
 
       closeModal('session-modal');
