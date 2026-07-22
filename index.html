@@ -8,44 +8,44 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-    body { font-family: 'Inter', sans-serif; }
-    .blur-privacy { filter: blur(5px); transition: all 0.2s ease; }
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .blur-privacy { filter: blur(6px); transition: all 0.2s ease; }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased">
+<body class="bg-slate-50/80 text-slate-800 antialiased selection:bg-teal-500 selection:text-white">
 
-  <div id="auth-screen" class="min-h-screen bg-slate-900 flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full space-y-6">
+  <div id="auth-screen" class="min-h-screen bg-slate-950 flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl shadow-2xl p-8 max-w-md w-full space-y-6 border border-slate-100">
       <div class="text-center space-y-2">
-        <div class="w-12 h-12 bg-teal-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl mx-auto shadow-lg shadow-teal-200">M</div>
-        <h1 class="text-2xl font-bold text-slate-900" id="auth-title">Entrar no Menti</h1>
-        <p class="text-xs text-slate-500">Gestão simples para psicólogos autônomos</p>
+        <div class="w-12 h-12 bg-teal-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl mx-auto shadow-lg shadow-teal-600/30">M</div>
+        <h1 class="text-2xl font-bold text-slate-900 tracking-tight" id="auth-title">Entrar no Menti</h1>
+        <p class="text-xs text-slate-500">Gestão clínica e financeira para psicólogos</p>
       </div>
 
       <form onsubmit="handleAuth(event)" class="space-y-4">
         <div id="register-fields" class="hidden space-y-3">
           <div>
             <label class="block text-xs font-semibold text-slate-700 mb-1">Nome Completo</label>
-            <input type="text" id="auth-name" class="w-full text-sm border border-slate-200 rounded-lg p-2.5 focus:border-teal-600 outline-none">
+            <input type="text" id="auth-name" class="w-full text-xs border border-slate-200 rounded-xl p-3 focus:border-teal-600 focus:ring-1 focus:ring-teal-600 outline-none transition">
           </div>
           <div>
             <label class="block text-xs font-semibold text-slate-700 mb-1">CRP</label>
-            <input type="text" id="auth-crp" placeholder="Ex: CRP 06/123456" class="w-full text-sm border border-slate-200 rounded-lg p-2.5 focus:border-teal-600 outline-none">
+            <input type="text" id="auth-crp" placeholder="Ex: CRP 06/123456" class="w-full text-xs border border-slate-200 rounded-xl p-3 focus:border-teal-600 focus:ring-1 focus:ring-teal-600 outline-none transition">
           </div>
         </div>
 
         <div>
           <label class="block text-xs font-semibold text-slate-700 mb-1">E-mail Profissional</label>
-          <input type="email" id="auth-email" required class="w-full text-sm border border-slate-200 rounded-lg p-2.5 focus:border-teal-600 outline-none">
+          <input type="email" id="auth-email" required class="w-full text-xs border border-slate-200 rounded-xl p-3 focus:border-teal-600 focus:ring-1 focus:ring-teal-600 outline-none transition">
         </div>
 
         <div>
           <label class="block text-xs font-semibold text-slate-700 mb-1">Senha</label>
-          <input type="password" id="auth-password" required minlength="6" class="w-full text-sm border border-slate-200 rounded-lg p-2.5 focus:border-teal-600 outline-none">
+          <input type="password" id="auth-password" required minlength="6" class="w-full text-xs border border-slate-200 rounded-xl p-3 focus:border-teal-600 focus:ring-1 focus:ring-teal-600 outline-none transition">
         </div>
 
-        <button type="submit" id="auth-submit-btn" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-medium text-sm py-2.5 rounded-lg shadow-md transition">Entrar no Sistema</button>
+        <button type="submit" id="auth-submit-btn" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-semibold text-xs py-3 rounded-xl shadow-md shadow-teal-600/20 transition active:scale-[0.98]">Entrar no Sistema</button>
       </form>
 
       <div class="text-center pt-2">
@@ -55,44 +55,48 @@
   </div>
 
   <div id="app-screen" class="hidden min-h-screen flex flex-col md:flex-row">
-    <aside class="w-full md:w-64 bg-white border-r border-slate-200 p-6 flex flex-col justify-between">
+    
+    <aside class="w-full md:w-64 bg-white border-r border-slate-200/80 p-6 flex flex-col justify-between">
       <div>
         <div class="flex items-center justify-between mb-8">
-          <div class="flex items-center gap-2">
-            <div class="w-9 h-9 bg-teal-600 text-white rounded-xl flex items-center justify-center font-bold text-xl shadow-md shadow-teal-100">M</div>
-            <span class="text-xl font-bold tracking-tight text-slate-900">Menti</span>
-            <span class="text-xs bg-teal-50 text-teal-700 font-semibold px-2 py-0.5 rounded-full border border-teal-200">V1.0</span>
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 bg-teal-600 text-white rounded-xl flex items-center justify-center font-bold text-lg shadow-sm shadow-teal-600/30">M</div>
+            <span class="text-lg font-bold tracking-tight text-slate-900">menti</span>
           </div>
         </div>
 
         <nav class="space-y-1">
-          <button onclick="switchTab('dashboard')" id="nav-dashboard" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg bg-teal-50 text-teal-700 font-medium text-sm">
-            <i class="fa-solid fa-chart-pie text-base"></i> Dashboard
+          <button onclick="switchTab('dashboard')" id="nav-dashboard" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-teal-50 text-teal-700 font-semibold text-xs transition">
+            <i class="fa-solid fa-chart-pie text-sm"></i> Dashboard
           </button>
-          <button onclick="switchTab('pacientes')" id="nav-pacientes" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 font-medium text-sm transition">
-            <i class="fa-solid fa-user-group text-base"></i> Pacientes
+          <button onclick="switchTab('pacientes')" id="nav-pacientes" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 font-medium text-xs transition">
+            <i class="fa-solid fa-user-group text-sm"></i> Pacientes
           </button>
-          <button onclick="switchTab('agenda')" id="nav-agenda" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 font-medium text-sm transition">
-            <i class="fa-solid fa-calendar-day text-base"></i> Agenda
+          <button onclick="switchTab('agenda')" id="nav-agenda" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 font-medium text-xs transition">
+            <i class="fa-solid fa-calendar-day text-sm"></i> Agenda
           </button>
         </nav>
       </div>
 
       <div class="pt-6 border-t border-slate-100 space-y-4">
-        <button onclick="togglePrivacy()" class="w-full flex items-center justify-between px-3 py-2 rounded-lg border border-slate-200 text-xs font-medium text-slate-600 hover:bg-slate-50 transition">
+        <button onclick="togglePrivacy()" class="w-full flex items-center justify-between px-3.5 py-2 rounded-xl border border-slate-200/80 text-[11px] font-medium text-slate-600 hover:bg-slate-50 transition">
           <span class="flex items-center gap-2"><i class="fa-solid fa-shield-halved text-slate-400"></i> Modo Privacidade</span>
-          <i id="privacy-icon" class="fa-solid fa-toggle-off text-base text-slate-400"></i>
+          <i id="privacy-icon" class="fa-solid fa-toggle-off text-sm text-slate-400"></i>
         </button>
         
-        <div class="flex items-center justify-between pt-2">
-          <div onclick="openProfileModal()" class="flex items-center gap-3 cursor-pointer hover:bg-slate-50 p-2 rounded-xl transition border border-transparent hover:border-slate-200 w-full mr-2" title="Clique para editar seu perfil">
-            <div class="w-8 h-8 rounded-full bg-teal-100 text-teal-800 flex items-center justify-center font-semibold text-xs flex-shrink-0" id="user-avatar">M</div>
+        <div class="flex items-center justify-between pt-1">
+          <div onclick="openProfileModal()" class="flex items-center gap-2.5 cursor-pointer hover:bg-slate-50 p-1.5 rounded-xl transition border border-transparent hover:border-slate-200 w-full mr-1 overflow-hidden" title="Clique para editar seu perfil">
+            <div class="w-7 h-7 rounded-lg bg-teal-100 text-teal-800 flex items-center justify-center font-bold text-xs flex-shrink-0" id="user-avatar">M</div>
             <div class="overflow-hidden">
               <p class="text-xs font-semibold text-slate-900 truncate" id="user-display-name">Psicólogo</p>
-              <p class="text-[10px] text-slate-500 truncate" id="user-display-crp">CRP Sem registro</p>
+              <p class="text-[10px] text-slate-400 truncate" id="user-display-crp">CRP Sem registro</p>
             </div>
           </div>
-          <button onclick="logout()" class="text-slate-400 hover:text-red-500 text-sm p-2 rounded-lg hover:bg-slate-100 transition" title="Sair"><i class="fa-solid fa-right-from-bracket"></i></button>
+          <button onclick="logout()" class="text-slate-400 hover:text-red-500 text-xs p-2 rounded-lg hover:bg-slate-100 transition" title="Sair"><i class="fa-solid fa-right-from-bracket"></i></button>
+        </div>
+
+        <div class="text-center pt-1">
+          <span class="text-[10px] font-medium text-slate-300">v1.0</span>
         </div>
       </div>
     </aside>
@@ -100,34 +104,45 @@
     <main class="flex-1 p-6 md:p-10 max-w-6xl">
       <header class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
         <div>
-          <h1 class="text-2xl font-bold text-slate-900" id="page-title">Visão Geral</h1>
-          <p class="text-xs text-slate-500" id="today-date-display"></p>
+          <h1 class="text-2xl font-bold text-slate-900 tracking-tight" id="page-title">Visão Geral</h1>
+          <p class="text-xs text-slate-400" id="today-date-display"></p>
         </div>
-        <button onclick="openAppointmentModal()" class="bg-teal-600 hover:bg-teal-700 text-white font-medium text-sm px-4 py-2.5 rounded-lg shadow-sm transition flex items-center gap-2 w-fit">
-          <i class="fa-solid fa-plus"></i> Nova Consulta
+        <button onclick="openAppointmentModal()" class="bg-teal-600 hover:bg-teal-700 text-white font-semibold text-xs px-4 py-2.5 rounded-xl shadow-sm shadow-teal-600/20 transition flex items-center gap-2 w-fit active:scale-95">
+          <i class="fa-solid fa-plus text-xs"></i> Nova Consulta
         </button>
       </header>
 
       <div id="tab-dashboard" class="space-y-6">
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
-            <span class="text-xs font-medium text-slate-500">Sessões Hoje</span>
-            <p class="text-2xl font-bold text-slate-900 mt-1" id="dash-total-sessions">0</p>
+          <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
+            <div>
+              <span class="text-[11px] font-medium text-slate-400 uppercase tracking-wider">Sessões Hoje</span>
+              <p class="text-2xl font-bold text-slate-900 mt-0.5" id="dash-total-sessions">0</p>
+            </div>
+            <div class="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-500"><i class="fa-solid fa-calendar-check"></i></div>
           </div>
-          <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
-            <span class="text-xs font-medium text-slate-500">A Receber Hoje</span>
-            <p class="text-2xl font-bold text-teal-600 mt-1 privacy-target" id="dash-pending-amount">R$ 0,00</p>
+
+          <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
+            <div>
+              <span class="text-[11px] font-medium text-slate-400 uppercase tracking-wider">A Receber Hoje</span>
+              <p class="text-2xl font-bold text-teal-600 mt-0.5 privacy-target" id="dash-pending-amount">R$ 0,00</p>
+            </div>
+            <div class="w-10 h-10 rounded-xl bg-teal-50 flex items-center justify-center text-teal-600"><i class="fa-solid fa-hand-holding-dollar"></i></div>
           </div>
-          <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
-            <span class="text-xs font-medium text-slate-500">Pacientes Ativos</span>
-            <p class="text-2xl font-bold text-slate-900 mt-1" id="dash-total-patients">0</p>
+
+          <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
+            <div>
+              <span class="text-[11px] font-medium text-slate-400 uppercase tracking-wider">Pacientes Ativos</span>
+              <p class="text-2xl font-bold text-slate-900 mt-0.5" id="dash-total-patients">0</p>
+            </div>
+            <div class="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-500"><i class="fa-solid fa-users"></i></div>
           </div>
         </div>
 
-        <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
           <div class="p-5 border-b border-slate-100 flex items-center justify-between">
-            <h2 class="font-bold text-slate-900 text-sm flex items-center gap-2">
-              <i class="fa-solid fa-clock text-teal-600"></i> Atendimentos de Hoje
+            <h2 class="font-bold text-slate-900 text-xs uppercase tracking-wider flex items-center gap-2">
+              <i class="fa-solid fa-clock text-teal-600"></i> Atendimentos do Dia
             </h2>
           </div>
           <div class="divide-y divide-slate-100" id="dashboard-appointment-list"></div>
@@ -135,24 +150,24 @@
       </div>
 
       <div id="tab-pacientes" class="hidden space-y-4">
-        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between gap-4">
-          <input type="text" id="patient-search" oninput="renderPatients()" placeholder="Buscar paciente por nome ou CPF..." class="w-full max-w-xs text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-teal-600">
-          <button onclick="openPatientModal()" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-medium px-4 py-2.5 rounded-lg transition">+ Novo Paciente</button>
+        <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between gap-4">
+          <input type="text" id="patient-search" oninput="renderPatients()" placeholder="Buscar paciente por nome ou CPF..." class="w-full max-w-xs text-xs border border-slate-200 rounded-xl px-3 py-2 focus:outline-none focus:border-teal-600">
+          <button onclick="openPatientModal()" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition">+ Novo Paciente</button>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="patient-cards-container"></div>
       </div>
 
       <div id="tab-agenda" class="hidden space-y-4">
-        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div class="flex items-center gap-2">
-            <span class="text-xs font-medium text-slate-600">De:</span>
-            <input type="date" id="agenda-date-from" onchange="renderAgenda()" class="text-sm border border-slate-200 rounded-lg px-3 py-1.5 outline-none focus:border-teal-600">
-            <span class="text-xs font-medium text-slate-600 ml-2">Até:</span>
-            <input type="date" id="agenda-date-to" onchange="renderAgenda()" class="text-sm border border-slate-200 rounded-lg px-3 py-1.5 outline-none focus:border-teal-600">
+            <span class="text-xs font-semibold text-slate-600">De:</span>
+            <input type="date" id="agenda-date-from" onchange="renderAgenda()" class="text-xs border border-slate-200 rounded-xl px-3 py-2 outline-none focus:border-teal-600">
+            <span class="text-xs font-semibold text-slate-600 ml-2">Até:</span>
+            <input type="date" id="agenda-date-to" onchange="renderAgenda()" class="text-xs border border-slate-200 rounded-xl px-3 py-2 outline-none focus:border-teal-600">
           </div>
           <button onclick="resetAgendaDates()" class="text-xs text-teal-600 font-semibold hover:underline">Ver Apenas Hoje</button>
         </div>
-        <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
           <div class="divide-y divide-slate-100" id="full-agenda-list"></div>
         </div>
       </div>
@@ -160,111 +175,119 @@
   </div>
 
   <div id="profile-modal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
-    <div class="bg-white rounded-xl border border-slate-200 shadow-xl max-w-md w-full p-6 space-y-4">
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-xl max-w-md w-full p-6 space-y-4">
       <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-        <h3 class="font-bold text-slate-900 text-base">Perfil Profissional</h3>
+        <h3 class="font-bold text-slate-900 text-sm">Perfil Profissional</h3>
         <button onclick="closeModal('profile-modal')" class="text-slate-400 hover:text-slate-600 text-lg"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <form onsubmit="saveProfile(event)" class="space-y-3">
         <div>
           <label class="block text-xs font-semibold text-slate-700 mb-1">Nome Completo</label>
-          <input type="text" id="prof-name" required class="w-full text-xs border border-slate-200 rounded-lg p-2.5 focus:border-teal-600 outline-none">
+          <input type="text" id="prof-name" required class="w-full text-xs border border-slate-200 rounded-xl p-2.5 focus:border-teal-600 outline-none">
         </div>
         <div>
           <label class="block text-xs font-semibold text-slate-700 mb-1">Registro CRP</label>
-          <input type="text" id="prof-crp" placeholder="Ex: CRP 06/123456" class="w-full text-xs border border-slate-200 rounded-lg p-2.5 focus:border-teal-600 outline-none">
+          <input type="text" id="prof-crp" placeholder="Ex: CRP 06/123456" class="w-full text-xs border border-slate-200 rounded-xl p-2.5 focus:border-teal-600 outline-none">
         </div>
         <div>
           <label class="block text-xs font-semibold text-slate-700 mb-1">Telefone / WhatsApp</label>
-          <input type="text" id="prof-phone" placeholder="(11) 99999-9999" class="w-full text-xs border border-slate-200 rounded-lg p-2.5 focus:border-teal-600 outline-none">
+          <input type="text" id="prof-phone" placeholder="(11) 99999-9999" class="w-full text-xs border border-slate-200 rounded-xl p-2.5 focus:border-teal-600 outline-none">
         </div>
         <div>
           <label class="block text-xs font-semibold text-slate-700 mb-1">Chave Pix (para cobrança)</label>
-          <input type="text" id="prof-pix" placeholder="E-mail, CPF ou chave aleatória" class="w-full text-xs border border-slate-200 rounded-lg p-2.5 focus:border-teal-600 outline-none">
+          <input type="text" id="prof-pix" placeholder="E-mail, CPF ou chave aleatória" class="w-full text-xs border border-slate-200 rounded-xl p-2.5 focus:border-teal-600 outline-none">
         </div>
         <div class="flex justify-end gap-2 pt-2 border-t border-slate-100">
-          <button type="button" onclick="closeModal('profile-modal')" class="px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-100 rounded-lg">Cancelar</button>
-          <button type="submit" class="px-4 py-2 text-xs font-medium bg-teal-600 text-white hover:bg-teal-700 rounded-lg shadow-sm">Salvar Perfil</button>
+          <button type="button" onclick="closeModal('profile-modal')" class="px-3 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-xl">Cancelar</button>
+          <button type="submit" class="px-4 py-2 text-xs font-semibold bg-teal-600 text-white hover:bg-teal-700 rounded-xl shadow-sm">Salvar Perfil</button>
         </div>
       </form>
     </div>
   </div>
 
   <div id="patient-modal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
-    <div class="bg-white rounded-xl border border-slate-200 shadow-xl max-w-lg w-full p-6 space-y-4">
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-xl max-w-lg w-full p-6 space-y-4">
       <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-        <h3 class="font-bold text-slate-900 text-base" id="patient-modal-title">Novo Paciente</h3>
+        <h3 class="font-bold text-slate-900 text-sm" id="patient-modal-title">Novo Paciente</h3>
         <button onclick="closeModal('patient-modal')" class="text-slate-400 hover:text-slate-600 text-lg"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <form onsubmit="savePatient(event)" class="space-y-3">
         <input type="hidden" id="patient-id">
         <div>
           <label class="block text-xs font-semibold text-slate-700 mb-1">Nome Completo</label>
-          <input type="text" id="p-name" required class="w-full text-xs border border-slate-200 rounded-lg p-2.5 focus:border-teal-600 outline-none">
+          <input type="text" id="p-name" required class="w-full text-xs border border-slate-200 rounded-xl p-2.5 focus:border-teal-600 outline-none">
         </div>
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block text-xs font-semibold text-slate-700 mb-1">CPF</label>
-            <input type="text" id="p-cpf" class="w-full text-xs border border-slate-200 rounded-lg p-2.5 focus:border-teal-600 outline-none">
+            <input type="text" id="p-cpf" class="w-full text-xs border border-slate-200 rounded-xl p-2.5 focus:border-teal-600 outline-none">
           </div>
           <div>
             <label class="block text-xs font-semibold text-slate-700 mb-1">Telefone / WhatsApp</label>
-            <input type="text" id="p-phone" class="w-full text-xs border border-slate-200 rounded-lg p-2.5 focus:border-teal-600 outline-none">
+            <input type="text" id="p-phone" class="w-full text-xs border border-slate-200 rounded-xl p-2.5 focus:border-teal-600 outline-none">
           </div>
         </div>
         <div>
           <label class="block text-xs font-semibold text-slate-700 mb-1">Valor Padrão da Sessão (R$)</label>
-          <input type="number" id="p-price" value="150" required class="w-full text-xs border border-slate-200 rounded-lg p-2.5 focus:border-teal-600 outline-none">
+          <input type="number" id="p-price" value="150" step="0.01" required class="w-full text-xs border border-slate-200 rounded-xl p-2.5 focus:border-teal-600 outline-none">
         </div>
         <div>
           <label class="block text-xs font-semibold text-slate-700 mb-1">Anamnese / Observações Iniciais</label>
-          <textarea id="p-notes" rows="3" class="w-full text-xs border border-slate-200 rounded-lg p-2.5 focus:border-teal-600 outline-none"></textarea>
+          <textarea id="p-notes" rows="3" class="w-full text-xs border border-slate-200 rounded-xl p-2.5 focus:border-teal-600 outline-none"></textarea>
         </div>
         <div class="flex justify-end gap-2 pt-2 border-t border-slate-100">
-          <button type="button" onclick="closeModal('patient-modal')" class="px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-100 rounded-lg">Cancelar</button>
-          <button type="submit" class="px-4 py-2 text-xs font-medium bg-teal-600 text-white hover:bg-teal-700 rounded-lg shadow-sm">Salvar Paciente</button>
+          <button type="button" onclick="closeModal('patient-modal')" class="px-3 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-xl">Cancelar</button>
+          <button type="submit" class="px-4 py-2 text-xs font-semibold bg-teal-600 text-white hover:bg-teal-700 rounded-xl shadow-sm">Salvar Paciente</button>
         </div>
       </form>
     </div>
   </div>
 
   <div id="appointment-modal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
-    <div class="bg-white rounded-xl border border-slate-200 shadow-xl max-w-md w-full p-6 space-y-4">
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-xl max-w-md w-full p-6 space-y-4">
       <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-        <h3 class="font-bold text-slate-900 text-base" id="appointment-modal-title">Agendar Consulta</h3>
+        <h3 class="font-bold text-slate-900 text-sm" id="appointment-modal-title">Agendar Consulta</h3>
         <button onclick="closeModal('appointment-modal')" class="text-slate-400 hover:text-slate-600 text-lg"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <form onsubmit="saveAppointment(event)" class="space-y-3">
         <input type="hidden" id="app-id">
         <div>
           <label class="block text-xs font-semibold text-slate-700 mb-1">Paciente</label>
-          <select id="app-patient-id" required class="w-full text-xs border border-slate-200 rounded-lg p-2.5 outline-none focus:border-teal-600"></select>
+          <select id="app-patient-id" onchange="onAppointmentPatientChange()" required class="w-full text-xs border border-slate-200 rounded-xl p-2.5 outline-none focus:border-teal-600 bg-white"></select>
         </div>
+        
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Valor desta Consulta (R$)</label>
+          <input type="number" id="app-price" step="0.01" value="150" required class="w-full text-xs border border-slate-200 rounded-xl p-2.5 outline-none focus:border-teal-600">
+          <span class="text-[10px] text-slate-400 block mt-1">Preenchido com o valor do cadastro do paciente. Altere apenas se for um valor específico para esta sessão.</span>
+        </div>
+
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block text-xs font-semibold text-slate-700 mb-1">Data</label>
-            <input type="date" id="app-date" required class="w-full text-xs border border-slate-200 rounded-lg p-2.5 outline-none focus:border-teal-600">
+            <input type="date" id="app-date" required class="w-full text-xs border border-slate-200 rounded-xl p-2.5 outline-none focus:border-teal-600">
           </div>
           <div>
             <label class="block text-xs font-semibold text-slate-700 mb-1">Horário</label>
-            <input type="time" id="app-time" value="14:00" required class="w-full text-xs border border-slate-200 rounded-lg p-2.5 outline-none focus:border-teal-600">
+            <input type="time" id="app-time" value="14:00" required class="w-full text-xs border border-slate-200 rounded-xl p-2.5 outline-none focus:border-teal-600">
           </div>
         </div>
+
         <div class="flex justify-end gap-2 pt-2 border-t border-slate-100">
-          <button type="button" onclick="closeModal('appointment-modal')" class="px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-100 rounded-lg">Cancelar</button>
-          <button type="submit" class="px-4 py-2 text-xs font-medium bg-teal-600 text-white hover:bg-teal-700 rounded-lg shadow-sm">Salvar Consulta</button>
+          <button type="button" onclick="closeModal('appointment-modal')" class="px-3 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-xl">Cancelar</button>
+          <button type="submit" class="px-4 py-2 text-xs font-semibold bg-teal-600 text-white hover:bg-teal-700 rounded-xl shadow-sm">Salvar Consulta</button>
         </div>
       </form>
     </div>
   </div>
 
   <div id="session-modal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
-    <div class="bg-white rounded-xl border border-slate-200 shadow-xl max-w-xl w-full p-6 space-y-4">
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-xl max-w-xl w-full p-6 space-y-4">
       <input type="hidden" id="current-editing-appointment-id">
       <div class="flex items-center justify-between border-b border-slate-100 pb-3">
         <div>
-          <h3 class="font-bold text-slate-900 text-base" id="modal-patient-name">Anotações da Sessão</h3>
-          <p class="text-xs text-slate-500" id="modal-patient-meta">Sessão</p>
+          <h3 class="font-bold text-slate-900 text-sm" id="modal-patient-name">Anotações da Sessão</h3>
+          <p class="text-xs text-slate-400" id="modal-patient-meta">Sessão</p>
         </div>
         <button onclick="closeModal('session-modal')" class="text-slate-400 hover:text-slate-600 text-lg"><i class="fa-solid fa-xmark"></i></button>
       </div>
@@ -273,7 +296,7 @@
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block text-xs font-semibold text-slate-700 mb-1">Status da Consulta</label>
-            <select id="modal-session-status" class="w-full text-xs border border-slate-200 rounded-lg p-2.5 focus:border-teal-600 outline-none">
+            <select id="modal-session-status" class="w-full text-xs border border-slate-200 rounded-xl p-2.5 focus:border-teal-600 outline-none bg-white">
               <option value="agendada">Agendada</option>
               <option value="realizada">Realizada</option>
               <option value="cancelada">Cancelada</option>
@@ -281,7 +304,7 @@
           </div>
           <div>
             <label class="block text-xs font-semibold text-slate-700 mb-1">Pagamento</label>
-            <select id="modal-payment-status" class="w-full text-xs border border-slate-200 rounded-lg p-2.5 focus:border-teal-600 outline-none">
+            <select id="modal-payment-status" class="w-full text-xs border border-slate-200 rounded-xl p-2.5 focus:border-teal-600 outline-none bg-white">
               <option value="pendente">Pendente</option>
               <option value="pago">Pago</option>
             </select>
@@ -290,13 +313,13 @@
 
         <div>
           <label class="block text-xs font-semibold text-slate-700 mb-1">Evolução Clínica / Anotações Privadas</label>
-          <textarea id="modal-session-notes" rows="6" placeholder="Escreva aqui as observações da sessão..." class="w-full text-xs border border-slate-200 rounded-lg p-3 focus:border-teal-600 outline-none text-slate-700 leading-relaxed"></textarea>
+          <textarea id="modal-session-notes" rows="6" placeholder="Escreva aqui as observações da sessão..." class="w-full text-xs border border-slate-200 rounded-xl p-3 focus:border-teal-600 outline-none text-slate-700 leading-relaxed"></textarea>
         </div>
       </div>
 
       <div class="flex items-center justify-end gap-2 pt-3 border-t border-slate-100">
-        <button onclick="closeModal('session-modal')" class="px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-100 rounded-lg">Cancelar</button>
-        <button onclick="saveSessionNotes()" class="px-4 py-2 text-xs font-medium bg-teal-600 text-white hover:bg-teal-700 rounded-lg shadow-sm">Salvar Prontuário</button>
+        <button onclick="closeModal('session-modal')" class="px-3 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-xl">Cancelar</button>
+        <button onclick="saveSessionNotes()" class="px-4 py-2 text-xs font-semibold bg-teal-600 text-white hover:bg-teal-700 rounded-xl shadow-sm">Salvar Prontuário</button>
       </div>
     </div>
   </div>
@@ -449,16 +472,16 @@
       document.getElementById('dash-total-sessions').innerText = todayApps.length;
       document.getElementById('dash-total-patients').innerText = state.patients.length;
 
-      // Cálculo de valores pendentes no dia (independente de maiúsculas/minúsculas)
+      // Soma o valor exato da consulta ou fallback do paciente
       const pending = todayApps
         .filter(a => (a.pagamento || '').toLowerCase() === 'pendente')
         .reduce((acc, curr) => {
           const patient = state.patients.find(p => p.id == curr.paciente_id);
-          const val = Number(curr.valor) || Number(patient?.valor_padrao) || 150;
+          const val = Number(curr.valor) || Number(patient?.valor_padrao) || 0;
           return acc + val;
         }, 0);
 
-      document.getElementById('dash-pending-amount').innerText = `R$ ${pending.toFixed(2).replace('.', ',')}`;
+      document.getElementById('dash-pending-amount').innerText = `R$ ${pending.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
       const list = document.getElementById('dashboard-appointment-list');
       if (todayApps.length === 0) {
@@ -468,20 +491,22 @@
 
       list.innerHTML = todayApps.map(app => {
         const patient = state.patients.find(p => p.id == app.paciente_id) || { nome: 'Paciente' };
+        const appPrice = Number(app.valor) || Number(patient.valor_padrao) || 150;
         const statusClass = (app.status || '').toLowerCase() === 'realizada' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800';
+        
         return `
           <div class="p-4 flex items-center justify-between gap-4">
             <div class="flex items-center gap-4">
-              <span class="font-bold text-slate-700 text-sm w-12">${(app.horario || '00:00').substring(0,5)}</span>
+              <span class="font-bold text-slate-700 text-xs w-12">${(app.horario || '00:00').substring(0,5)}</span>
               <div>
-                <h3 class="font-semibold text-slate-900 text-sm privacy-target">${patient.nome}</h3>
-                <p class="text-xs text-slate-500">${app.tipo || 'Sessão Individual'}</p>
+                <h3 class="font-semibold text-slate-900 text-xs privacy-target">${patient.nome}</h3>
+                <p class="text-[11px] text-slate-400">R$ ${appPrice.toFixed(2)} • ${app.tipo || 'Sessão Individual'}</p>
               </div>
             </div>
             <div class="flex items-center gap-2">
-              <span class="text-xs px-2.5 py-1 rounded-full font-medium ${statusClass}">${app.status}</span>
-              <button onclick="openAppointmentModal('${app.id}')" class="text-xs text-slate-500 hover:text-slate-800 font-semibold px-2 py-1" title="Editar data/horário"><i class="fa-solid fa-pen"></i></button>
-              <button onclick="openSessionModal('${app.id}')" class="text-xs text-teal-600 hover:text-teal-800 font-semibold px-2 py-1">Prontuário</button>
+              <span class="text-[11px] px-2.5 py-0.5 rounded-full font-semibold ${statusClass}">${app.status}</span>
+              <button onclick="openAppointmentModal('${app.id}')" class="text-xs text-slate-400 hover:text-slate-800 p-1" title="Editar Consulta"><i class="fa-solid fa-pen"></i></button>
+              <button onclick="openSessionModal('${app.id}')" class="text-xs bg-teal-50 text-teal-700 hover:bg-teal-100 font-semibold px-2.5 py-1 rounded-lg transition">Prontuário</button>
             </div>
           </div>
         `;
@@ -495,21 +520,21 @@
       const filtered = state.patients.filter(p => p.nome.toLowerCase().includes(search) || (p.cpf && p.cpf.includes(search)));
       
       if (filtered.length === 0) {
-        container.innerHTML = `<div class="col-span-2 p-8 text-center text-xs text-slate-400 bg-white rounded-xl border border-slate-200">Nenhum paciente encontrado.</div>`;
+        container.innerHTML = `<div class="col-span-2 p-8 text-center text-xs text-slate-400 bg-white rounded-2xl border border-slate-200/80">Nenhum paciente encontrado.</div>`;
         return;
       }
 
       container.innerHTML = filtered.map(p => `
-        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-3">
+        <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm space-y-3">
           <div class="flex items-center justify-between">
-            <h3 class="font-bold text-slate-900 text-sm privacy-target">${p.nome}</h3>
+            <h3 class="font-bold text-slate-900 text-xs privacy-target">${p.nome}</h3>
             <div class="flex items-center gap-2">
-              <span class="text-xs font-semibold text-teal-700 bg-teal-50 px-2 py-0.5 rounded">R$ ${p.valor_padrao}</span>
-              <button onclick="openPatientModal('${p.id}')" class="text-xs text-slate-400 hover:text-teal-600 px-1" title="Editar Paciente"><i class="fa-solid fa-pen"></i> Editar</button>
+              <span class="text-xs font-semibold text-teal-700 bg-teal-50 px-2 py-0.5 rounded-md">R$ ${Number(p.valor_padrao || 150).toFixed(2)}</span>
+              <button onclick="openPatientModal('${p.id}')" class="text-xs text-slate-400 hover:text-teal-600 px-1 font-medium"><i class="fa-solid fa-pen"></i> Editar</button>
             </div>
           </div>
-          <p class="text-xs text-slate-500">CPF: ${p.cpf || 'Não informado'} • Tel: ${p.telefone || 'Não informado'}</p>
-          <p class="text-xs text-slate-600 bg-slate-50 p-2.5 rounded border border-slate-100">${p.notas || 'Sem anotações.'}</p>
+          <p class="text-xs text-slate-400">CPF: ${p.cpf || 'Não informado'} • Tel: ${p.telefone || 'Não informado'}</p>
+          <p class="text-xs text-slate-600 bg-slate-50 p-2.5 rounded-xl border border-slate-100">${p.notas || 'Sem anotações.'}</p>
         </div>
       `).join('');
     }
@@ -532,7 +557,9 @@
 
       container.innerHTML = filtered.map(app => {
         const patient = state.patients.find(p => p.id == app.paciente_id) || { nome: 'Paciente' };
+        const appPrice = Number(app.valor) || Number(patient.valor_padrao) || 150;
         const formattedDate = new Date(app.data + 'T00:00:00').toLocaleDateString('pt-BR');
+
         return `
           <div class="p-4 flex items-center justify-between gap-4">
             <div class="flex items-center gap-4">
@@ -541,8 +568,8 @@
                 <span class="text-xs font-semibold text-teal-600 block">${(app.horario || '00:00').substring(0,5)}</span>
               </div>
               <div>
-                <h3 class="font-semibold text-slate-900 text-sm privacy-target">${patient.nome}</h3>
-                <p class="text-xs text-slate-500">Status: <span class="capitalize font-medium">${app.status}</span> • Pagamento: <span class="capitalize font-medium">${app.pagamento}</span></p>
+                <h3 class="font-semibold text-slate-900 text-xs privacy-target">${patient.nome}</h3>
+                <p class="text-xs text-slate-400">Valor: R$ ${appPrice.toFixed(2)} • Status: <span class="capitalize text-slate-600 font-medium">${app.status}</span> • PG: <span class="capitalize text-slate-600 font-medium">${app.pagamento}</span></p>
               </div>
             </div>
             <div class="flex items-center gap-2">
@@ -564,17 +591,17 @@
     function togglePrivacy() {
       state.privacy = !state.privacy;
       document.querySelectorAll('.privacy-target').forEach(el => el.classList.toggle('blur-privacy', state.privacy));
-      document.getElementById('privacy-icon').className = state.privacy ? 'fa-solid fa-toggle-on text-base text-teal-600' : 'fa-solid fa-toggle-off text-base text-slate-400';
+      document.getElementById('privacy-icon').className = state.privacy ? 'fa-solid fa-toggle-on text-sm text-teal-600' : 'fa-solid fa-toggle-off text-sm text-slate-400';
     }
 
     function switchTab(tab) {
       ['dashboard', 'pacientes', 'agenda'].forEach(t => {
         document.getElementById(`tab-${t}`).classList.add('hidden');
-        document.getElementById(`nav-${t}`).className = 'w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 font-medium text-sm transition';
+        document.getElementById(`nav-${t}`).className = 'w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 font-medium text-xs transition';
       });
 
       document.getElementById(`tab-${tab}`).classList.remove('hidden');
-      document.getElementById(`nav-${tab}`).className = 'w-full flex items-center gap-3 px-3 py-2.5 rounded-lg bg-teal-50 text-teal-700 font-medium text-sm';
+      document.getElementById(`nav-${tab}`).className = 'w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-teal-50 text-teal-700 font-semibold text-xs';
 
       const pageTitles = {
         'dashboard': 'Visão Geral',
@@ -635,6 +662,14 @@
       await loadData();
     }
 
+    function onAppointmentPatientChange() {
+      const selectedPatientId = document.getElementById('app-patient-id').value;
+      const patient = state.patients.find(p => p.id == selectedPatientId);
+      if (patient) {
+        document.getElementById('app-price').value = patient.valor_padrao || 150;
+      }
+    }
+
     function openAppointmentModal(appId = null) {
       if (state.patients.length === 0) {
         alert('Cadastre pelo menos um paciente antes de agendar uma consulta.');
@@ -651,12 +686,14 @@
         const app = state.appointments.find(a => a.id == appId);
         if (app) {
           select.value = app.paciente_id;
+          document.getElementById('app-price').value = app.valor || 150;
           document.getElementById('app-date').value = app.data;
           document.getElementById('app-time').value = (app.horario || '14:00').substring(0, 5);
         }
       } else {
         document.getElementById('app-date').value = getTodayString();
         document.getElementById('app-time').value = '14:00';
+        onAppointmentPatientChange();
       }
 
       openModal('appointment-modal');
@@ -666,14 +703,13 @@
       e.preventDefault();
       const appId = document.getElementById('app-id').value;
       const patientId = document.getElementById('app-patient-id').value;
-      const patient = state.patients.find(p => p.id == patientId);
 
       const appData = {
         psicologo_id: state.user.id,
         paciente_id: patientId,
+        valor: Number(document.getElementById('app-price').value || 150),
         data: document.getElementById('app-date').value,
-        horario: document.getElementById('app-time').value,
-        valor: patient ? patient.valor_padrao : 150
+        horario: document.getElementById('app-time').value
       };
 
       let error;
