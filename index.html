@@ -85,14 +85,14 @@
         </button>
         
         <div class="flex items-center justify-between pt-2">
-          <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-full bg-teal-100 text-teal-800 flex items-center justify-center font-semibold text-xs" id="user-avatar">M</div>
+          <div onclick="openProfileModal()" class="flex items-center gap-3 cursor-pointer hover:bg-slate-50 p-2 rounded-xl transition border border-transparent hover:border-slate-200 w-full mr-2" title="Clique para editar seu perfil">
+            <div class="w-8 h-8 rounded-full bg-teal-100 text-teal-800 flex items-center justify-center font-semibold text-xs flex-shrink-0" id="user-avatar">M</div>
             <div class="overflow-hidden">
               <p class="text-xs font-semibold text-slate-900 truncate" id="user-display-name">Psicólogo</p>
               <p class="text-[10px] text-slate-500 truncate" id="user-display-crp">CRP Sem registro</p>
             </div>
           </div>
-          <button onclick="logout()" class="text-slate-400 hover:text-red-500 text-sm p-1" title="Sair"><i class="fa-solid fa-right-from-bracket"></i></button>
+          <button onclick="logout()" class="text-slate-400 hover:text-red-500 text-sm p-2 rounded-lg hover:bg-slate-100 transition" title="Sair"><i class="fa-solid fa-right-from-bracket"></i></button>
         </div>
       </div>
     </aside>
@@ -154,35 +154,70 @@
     </main>
   </div>
 
-  <div id="patient-modal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
-    <div class="bg-white rounded-xl border border-slate-200 shadow-xl max-w-lg w-full p-6 space-y-4">
-      <h3 class="font-bold text-slate-900 text-base">Novo Paciente</h3>
-      <form onsubmit="savePatient(event)" class="space-y-3">
+  <div id="profile-modal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-xl border border-slate-200 shadow-xl max-w-md w-full p-6 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <h3 class="font-bold text-slate-900 text-base">Perfil Profissional</h3>
+        <button onclick="closeModal('profile-modal')" class="text-slate-400 hover:text-slate-600 text-lg"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form onsubmit="saveProfile(event)" class="space-y-3">
         <div>
           <label class="block text-xs font-semibold text-slate-700 mb-1">Nome Completo</label>
-          <input type="text" id="p-name" required class="w-full text-xs border border-slate-200 rounded-lg p-2 focus:border-teal-600 outline-none">
+          <input type="text" id="prof-name" required class="w-full text-xs border border-slate-200 rounded-lg p-2.5 focus:border-teal-600 outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Registro CRP</label>
+          <input type="text" id="prof-crp" placeholder="Ex: CRP 06/123456" class="w-full text-xs border border-slate-200 rounded-lg p-2.5 focus:border-teal-600 outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Telefone / WhatsApp</label>
+          <input type="text" id="prof-phone" placeholder="(11) 99999-9999" class="w-full text-xs border border-slate-200 rounded-lg p-2.5 focus:border-teal-600 outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Chave Pix (para cobrança)</label>
+          <input type="text" id="prof-pix" placeholder="E-mail, CPF ou chave aleatória" class="w-full text-xs border border-slate-200 rounded-lg p-2.5 focus:border-teal-600 outline-none">
+        </div>
+        <div class="flex justify-end gap-2 pt-2 border-t border-slate-100">
+          <button type="button" onclick="closeModal('profile-modal')" class="px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-100 rounded-lg">Cancelar</button>
+          <button type="submit" class="px-4 py-2 text-xs font-medium bg-teal-600 text-white hover:bg-teal-700 rounded-lg shadow-sm">Salvar Perfil</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="patient-modal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-xl border border-slate-200 shadow-xl max-w-lg w-full p-6 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <h3 class="font-bold text-slate-900 text-base" id="patient-modal-title">Novo Paciente</h3>
+        <button onclick="closeModal('patient-modal')" class="text-slate-400 hover:text-slate-600 text-lg"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form onsubmit="savePatient(event)" class="space-y-3">
+        <input type="hidden" id="patient-id">
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Nome Completo</label>
+          <input type="text" id="p-name" required class="w-full text-xs border border-slate-200 rounded-lg p-2.5 focus:border-teal-600 outline-none">
         </div>
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block text-xs font-semibold text-slate-700 mb-1">CPF</label>
-            <input type="text" id="p-cpf" class="w-full text-xs border border-slate-200 rounded-lg p-2 focus:border-teal-600 outline-none">
+            <input type="text" id="p-cpf" class="w-full text-xs border border-slate-200 rounded-lg p-2.5 focus:border-teal-600 outline-none">
           </div>
           <div>
             <label class="block text-xs font-semibold text-slate-700 mb-1">Telefone / WhatsApp</label>
-            <input type="text" id="p-phone" class="w-full text-xs border border-slate-200 rounded-lg p-2 focus:border-teal-600 outline-none">
+            <input type="text" id="p-phone" class="w-full text-xs border border-slate-200 rounded-lg p-2.5 focus:border-teal-600 outline-none">
           </div>
         </div>
         <div>
           <label class="block text-xs font-semibold text-slate-700 mb-1">Valor Padrão da Sessão (R$)</label>
-          <input type="number" id="p-price" value="150" required class="w-full text-xs border border-slate-200 rounded-lg p-2 focus:border-teal-600 outline-none">
+          <input type="number" id="p-price" value="150" required class="w-full text-xs border border-slate-200 rounded-lg p-2.5 focus:border-teal-600 outline-none">
         </div>
         <div>
           <label class="block text-xs font-semibold text-slate-700 mb-1">Anamnese / Observações Iniciais</label>
-          <textarea id="p-notes" rows="3" class="w-full text-xs border border-slate-200 rounded-lg p-2 focus:border-teal-600 outline-none"></textarea>
+          <textarea id="p-notes" rows="3" class="w-full text-xs border border-slate-200 rounded-lg p-2.5 focus:border-teal-600 outline-none"></textarea>
         </div>
-        <div class="flex justify-end gap-2 pt-2">
-          <button type="button" onclick="closeModal('patient-modal')" class="px-3 py-2 text-xs font-medium text-slate-600">Cancelar</button>
-          <button type="submit" class="px-4 py-2 text-xs font-medium bg-teal-600 text-white rounded-lg">Salvar Paciente</button>
+        <div class="flex justify-end gap-2 pt-2 border-t border-slate-100">
+          <button type="button" onclick="closeModal('patient-modal')" class="px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-100 rounded-lg">Cancelar</button>
+          <button type="submit" class="px-4 py-2 text-xs font-medium bg-teal-600 text-white hover:bg-teal-700 rounded-lg shadow-sm">Salvar Paciente</button>
         </div>
       </form>
     </div>
@@ -190,25 +225,28 @@
 
   <div id="appointment-modal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
     <div class="bg-white rounded-xl border border-slate-200 shadow-xl max-w-md w-full p-6 space-y-4">
-      <h3 class="font-bold text-slate-900 text-base">Agendar Consulta</h3>
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <h3 class="font-bold text-slate-900 text-base">Agendar Consulta</h3>
+        <button onclick="closeModal('appointment-modal')" class="text-slate-400 hover:text-slate-600 text-lg"><i class="fa-solid fa-xmark"></i></button>
+      </div>
       <form onsubmit="saveAppointment(event)" class="space-y-3">
         <div>
           <label class="block text-xs font-semibold text-slate-700 mb-1">Paciente</label>
-          <select id="app-patient-id" required class="w-full text-xs border border-slate-200 rounded-lg p-2 outline-none focus:border-teal-600"></select>
+          <select id="app-patient-id" required class="w-full text-xs border border-slate-200 rounded-lg p-2.5 outline-none focus:border-teal-600"></select>
         </div>
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block text-xs font-semibold text-slate-700 mb-1">Data</label>
-            <input type="date" id="app-date" required class="w-full text-xs border border-slate-200 rounded-lg p-2 outline-none focus:border-teal-600">
+            <input type="date" id="app-date" required class="w-full text-xs border border-slate-200 rounded-lg p-2.5 outline-none focus:border-teal-600">
           </div>
           <div>
             <label class="block text-xs font-semibold text-slate-700 mb-1">Horário</label>
-            <input type="time" id="app-time" value="14:00" required class="w-full text-xs border border-slate-200 rounded-lg p-2 outline-none focus:border-teal-600">
+            <input type="time" id="app-time" value="14:00" required class="w-full text-xs border border-slate-200 rounded-lg p-2.5 outline-none focus:border-teal-600">
           </div>
         </div>
-        <div class="flex justify-end gap-2 pt-2">
-          <button type="button" onclick="closeModal('appointment-modal')" class="px-3 py-2 text-xs font-medium text-slate-600">Cancelar</button>
-          <button type="submit" class="px-4 py-2 text-xs font-medium bg-teal-600 text-white rounded-lg">Confirmar Agendamento</button>
+        <div class="flex justify-end gap-2 pt-2 border-t border-slate-100">
+          <button type="button" onclick="closeModal('appointment-modal')" class="px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-100 rounded-lg">Cancelar</button>
+          <button type="submit" class="px-4 py-2 text-xs font-medium bg-teal-600 text-white hover:bg-teal-700 rounded-lg shadow-sm">Confirmar Agendamento</button>
         </div>
       </form>
     </div>
@@ -229,7 +267,7 @@
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block text-xs font-semibold text-slate-700 mb-1">Status da Consulta</label>
-            <select id="modal-session-status" class="w-full text-xs border border-slate-200 rounded-lg p-2 focus:border-teal-600 outline-none">
+            <select id="modal-session-status" class="w-full text-xs border border-slate-200 rounded-lg p-2.5 focus:border-teal-600 outline-none">
               <option value="agendada">Agendada</option>
               <option value="realizada">Realizada</option>
               <option value="cancelada">Cancelada</option>
@@ -237,7 +275,7 @@
           </div>
           <div>
             <label class="block text-xs font-semibold text-slate-700 mb-1">Pagamento</label>
-            <select id="modal-payment-status" class="w-full text-xs border border-slate-200 rounded-lg p-2 focus:border-teal-600 outline-none">
+            <select id="modal-payment-status" class="w-full text-xs border border-slate-200 rounded-lg p-2.5 focus:border-teal-600 outline-none">
               <option value="pendente">Pendente</option>
               <option value="pago">Pago</option>
             </select>
@@ -251,8 +289,8 @@
       </div>
 
       <div class="flex items-center justify-end gap-2 pt-3 border-t border-slate-100">
-        <button onclick="closeModal('session-modal')" class="px-3 py-2 text-xs font-medium text-slate-600">Cancelar</button>
-        <button onclick="saveSessionNotes()" class="px-4 py-2 text-xs font-medium bg-teal-600 text-white rounded-lg">Salvar Prontuário</button>
+        <button onclick="closeModal('session-modal')" class="px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-100 rounded-lg">Cancelar</button>
+        <button onclick="saveSessionNotes()" class="px-4 py-2 text-xs font-medium bg-teal-600 text-white hover:bg-teal-700 rounded-lg shadow-sm">Salvar Prontuário</button>
       </div>
     </div>
   </div>
@@ -264,6 +302,7 @@
 
     let state = {
       user: null,
+      profile: null,
       privacy: false,
       patients: [],
       appointments: [],
@@ -280,7 +319,7 @@
       const { data: { session } } = await supabaseClient.auth.getSession();
       if (session) {
         state.user = session.user;
-        showAppScreen();
+        await showAppScreen();
       }
     });
 
@@ -302,20 +341,23 @@
           const name = document.getElementById('auth-name').value;
           const crp = document.getElementById('auth-crp').value;
           
-          const { data, error } = await supabaseClient.auth.signUp({ email, password });
-          if (error) throw error;
-          
-          if (data.user) {
-            await supabaseClient.from('psicologos').insert([{ id: data.user.id, nome: name, crp: crp, email: email }]);
-            alert('Conta criada com sucesso!');
-            state.user = data.user;
-            showAppScreen();
+          const { data: signUpData, error: signUpError } = await supabaseClient.auth.signUp({ email, password });
+          if (signUpError) throw signUpError;
+
+          const { data: signInData, error: signInError } = await supabaseClient.auth.signInWithPassword({ email, password });
+          if (signInError) throw signInError;
+
+          const activeUser = signInData.user || signUpData.user;
+          if (activeUser) {
+            await supabaseClient.from('psicologos').upsert([{ id: activeUser.id, nome: name, crp: crp, email: email }]);
+            state.user = activeUser;
+            await showAppScreen();
           }
         } else {
           const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
           if (error) throw error;
           state.user = data.user;
-          showAppScreen();
+          await showAppScreen();
         }
       } catch (err) {
         alert('Erro na autenticação: ' + err.message);
@@ -324,6 +366,8 @@
 
     async function logout() {
       await supabaseClient.auth.signOut();
+      state.user = null;
+      state.profile = null;
       document.getElementById('app-screen').classList.add('hidden');
       document.getElementById('auth-screen').classList.remove('hidden');
     }
@@ -332,14 +376,46 @@
       document.getElementById('auth-screen').classList.add('hidden');
       document.getElementById('app-screen').classList.remove('hidden');
 
-      const { data: profile } = await supabaseClient.from('psicologos').select('*').eq('id', state.user.id).single();
+      const { data: profile } = await supabaseClient.from('psicologos').select('*').eq('id', state.user.id).maybeSingle();
       if (profile) {
-        document.getElementById('user-display-name').innerText = profile.nome;
+        state.profile = profile;
+        document.getElementById('user-display-name').innerText = profile.nome || 'Psicólogo';
         document.getElementById('user-display-crp').innerText = profile.crp || 'CRP Sem Registro';
-        document.getElementById('user-avatar').innerText = profile.nome.charAt(0).toUpperCase();
+        document.getElementById('user-avatar').innerText = (profile.nome || 'M').charAt(0).toUpperCase();
+      } else {
+        const newProf = { id: state.user.id, nome: state.user.email.split('@')[0], email: state.user.email };
+        await supabaseClient.from('psicologos').upsert([newProf]);
+        state.profile = newProf;
+        document.getElementById('user-display-name').innerText = newProf.nome;
       }
 
       await loadData();
+    }
+
+    async function openProfileModal() {
+      if (state.profile) {
+        document.getElementById('prof-name').value = state.profile.nome || '';
+        document.getElementById('prof-crp').value = state.profile.crp || '';
+        document.getElementById('prof-phone').value = state.profile.telefone || '';
+        document.getElementById('prof-pix').value = state.profile.pix || '';
+      }
+      openModal('profile-modal');
+    }
+
+    async function saveProfile(e) {
+      e.preventDefault();
+      const updated = {
+        nome: document.getElementById('prof-name').value,
+        crp: document.getElementById('prof-crp').value,
+        telefone: document.getElementById('prof-phone').value,
+        pix: document.getElementById('prof-pix').value
+      };
+
+      const { error } = await supabaseClient.from('psicologos').update(updated).eq('id', state.user.id);
+      if (error) return alert('Erro ao salvar perfil: ' + error.message);
+
+      closeModal('profile-modal');
+      await showAppScreen();
     }
 
     async function loadData() {
@@ -379,7 +455,7 @@
         return `
           <div class="p-4 flex items-center justify-between gap-4">
             <div class="flex items-center gap-4">
-              <span class="font-bold text-slate-700 text-sm w-12">${app.horario.substring(0,5)}</span>
+              <span class="font-bold text-slate-700 text-sm w-12">${(app.horario || '00:00').substring(0,5)}</span>
               <div>
                 <h3 class="font-semibold text-slate-900 text-sm privacy-target">${patient.nome}</h3>
                 <p class="text-xs text-slate-500">${app.tipo || 'Sessão Individual'}</p>
@@ -387,7 +463,7 @@
             </div>
             <div class="flex items-center gap-2">
               <span class="text-xs px-2.5 py-1 rounded-full font-medium ${app.status === 'realizada' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">${app.status}</span>
-              <button onclick="openSessionModal('${app.id}')" class="text-xs text-teal-600 font-semibold px-2 py-1">Prontuário</button>
+              <button onclick="openSessionModal('${app.id}')" class="text-xs text-teal-600 hover:text-teal-800 font-semibold px-2 py-1">Prontuário</button>
             </div>
           </div>
         `;
@@ -412,7 +488,7 @@
             <span class="text-xs font-semibold text-teal-700 bg-teal-50 px-2 py-0.5 rounded">R$ ${p.valor_padrao}</span>
           </div>
           <p class="text-xs text-slate-500">CPF: ${p.cpf || 'Não informado'} • Tel: ${p.telefone || 'Não informado'}</p>
-          <p class="text-xs text-slate-600 bg-slate-50 p-2 rounded border border-slate-100">${p.notas || 'Sem anotações.'}</p>
+          <p class="text-xs text-slate-600 bg-slate-50 p-2.5 rounded border border-slate-100">${p.notas || 'Sem anotações.'}</p>
         </div>
       `).join('');
     }
@@ -432,13 +508,13 @@
         return `
           <div class="p-4 flex items-center justify-between gap-4">
             <div class="flex items-center gap-4">
-              <span class="font-bold text-slate-700 text-sm">${app.horario.substring(0,5)}</span>
+              <span class="font-bold text-slate-700 text-sm">${(app.horario || '00:00').substring(0,5)}</span>
               <div>
                 <h3 class="font-semibold text-slate-900 text-sm privacy-target">${patient.nome}</h3>
                 <p class="text-xs text-slate-500">Status: ${app.status} • Pagamento: ${app.pagamento}</p>
               </div>
             </div>
-            <button onclick="openSessionModal('${app.id}')" class="text-xs bg-teal-50 text-teal-700 font-semibold px-3 py-1.5 rounded-lg">Prontuário</button>
+            <button onclick="openSessionModal('${app.id}')" class="text-xs bg-teal-50 text-teal-700 hover:bg-teal-100 font-semibold px-3 py-1.5 rounded-lg transition">Prontuário</button>
           </div>
         `;
       }).join('');
@@ -472,7 +548,7 @@
         nome: document.getElementById('p-name').value,
         cpf: document.getElementById('p-cpf').value,
         telefone: document.getElementById('p-phone').value,
-        valor_padrao: document.getElementById('p-price').value,
+        valor_padrao: Number(document.getElementById('p-price').value || 150),
         notas: document.getElementById('p-notes').value
       };
 
@@ -486,7 +562,7 @@
     function openAppointmentModal() {
       const select = document.getElementById('app-patient-id');
       if (state.patients.length === 0) {
-        alert('Cadastre um paciente primeiro antes de agendar uma consulta.');
+        alert('Cadastre pelo menos um paciente antes de agendar uma consulta.');
         return;
       }
       select.innerHTML = state.patients.map(p => `<option value="${p.id}">${p.nome}</option>`).join('');
@@ -522,7 +598,7 @@
       const patient = state.patients.find(p => p.id == app.paciente_id);
       document.getElementById('current-editing-appointment-id').value = app.id;
       document.getElementById('modal-patient-name').innerText = patient ? patient.nome : 'Paciente';
-      document.getElementById('modal-patient-meta').innerText = `Consulta das ${app.horario.substring(0,5)} • Data: ${app.data}`;
+      document.getElementById('modal-patient-meta').innerText = `Consulta das ${(app.horario || '00:00').substring(0,5)} • Data: ${app.data}`;
       document.getElementById('modal-session-status').value = app.status;
       document.getElementById('modal-payment-status').value = app.pagamento;
       document.getElementById('modal-session-notes').value = app.anotacoes || '';
